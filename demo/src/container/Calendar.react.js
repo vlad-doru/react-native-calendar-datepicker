@@ -52,6 +52,15 @@ export default class Calendar extends Component {
     }
   };
 
+  _nextStage = () : void => {
+    if (this.state.stage === MONTH_SELECTOR) {
+      this.setState({stage: DAY_SELECTOR})
+    }
+    if (this.state.stage === YEAR_SELECTOR) {
+      this.setState({stage: MONTH_SELECTOR})
+    }
+  };
+
   componentWillUpdate() {
     // Automatically insert animations.
     LayoutAnimation.easeInEaseOut();
@@ -63,25 +72,38 @@ export default class Calendar extends Component {
 
         // Wrapper view default style.
       },this.props.style]}>
-        <TouchableHighlight onPress={this._previousStage}>
-          <Text>Stage Selector</Text>
-        </TouchableHighlight>
-        <View style={{overflow: "hidden"}}>
-          <View style={{
-            height: this.state.stage !== DAY_SELECTOR ? 0 : undefined,
-          }}>
-            <DaySelector/>
-          </View>
-          <View style={{
-            height: this.state.stage !== MONTH_SELECTOR ? 0 : undefined,
-          }}>
-            <MonthSelector/>
-          </View>
-          <View style={{
-            height: this.state.stage !== YEAR_SELECTOR ? 0 : undefined,
-          }}>
-            <YearSelector/>
-          </View>
+        <View style={{
+          flexDirection: 'row',
+        }}>
+          {this.state.stage !== DAY_SELECTOR ?
+            <TouchableHighlight
+                activeOpacity={0.8}
+                underlayColor='transparent'
+                onPress={this._nextStage}
+                style={styles.nextStage}>
+              <Text>Back</Text>
+            </TouchableHighlight>
+          : null}
+          {this.state.stage !== YEAR_SELECTOR ?
+            <TouchableHighlight
+                activeOpacity={0.8}
+                underlayColor='transparent'
+                onPress={this._previousStage}
+                style={styles.previousStage}>
+              <Text>Stage selector</Text>
+            </TouchableHighlight>
+          : null}
+        </View>
+        <View style={styles.stageWrapper}>
+          {
+            this.state.stage === DAY_SELECTOR ?
+            <DaySelector/> :
+            this.state.stage === MONTH_SELECTOR ?
+            <MonthSelector/> :
+            this.state.stage === YEAR_SELECTOR ?
+            <YearSelector/> :
+            null
+          }
         </View>
       </View>
     );
@@ -90,4 +112,16 @@ export default class Calendar extends Component {
 Calendar.defaultProps = {};
 
 const styles = StyleSheet.create({
+  previousStage: {
+    flex: 1,
+    padding: 5,
+    alignItems: 'center',
+  },
+  nextStage: {
+    padding: 5,
+    alignItems: 'center',
+  },
+  stageWrapper: {
+    padding: 5,
+  },
 });

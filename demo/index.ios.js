@@ -16,7 +16,12 @@ class demo extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Calendar/>
+        <View style={{flexDirection: 'row'}}>
+          <Calendar style={{
+            flex: 1,
+            borderWidth: 1,
+          }}/>
+        </View>
       </View>
     );
   }
