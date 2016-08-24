@@ -12,9 +12,12 @@ import {
 
 // Component specific libraries.
 import _ from 'lodash';
+import Moment from 'moment';
 
 type Props = {
   style?: View.propTypes.style,
+  focus: Moment,
+  selected: Moment,
 };
 type State = {};
 
@@ -33,7 +36,10 @@ export default class MonthSelector extends Component {
     );
   }
 }
-MonthSelector.defaultProps = {};
+MonthSelector.defaultProps = {
+  focus: Moment(),
+  selected: Moment(),
+};
 
 const styles = StyleSheet.create({
 });

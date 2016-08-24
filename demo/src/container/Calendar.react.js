@@ -26,6 +26,7 @@ type Props = {
   children?: any,
   style?: View.propTypes.style,
   selected: Moment,
+  onChange?: (date: Moment) => void,
 };
 type Selector = 1 | 2 | 3;
 const DAY_SELECTOR = 1;
@@ -35,8 +36,6 @@ type State = {
   stage: Selector,
   // Focus points to the first day of the month that is in current focus.
   focus: Moment,
-  // The selected date that will be encapsulated in the state.
-  selected: Moment,
 };
 
 // TODO: Monitor change in props for selected.
@@ -52,7 +51,6 @@ export default class Calendar extends Component {
     this.state = {
       stage: DAY_SELECTOR,
       focus: Moment().startOf('month'),
-      selected: props.selected,
     }
   }
 
@@ -89,6 +87,7 @@ export default class Calendar extends Component {
 
         // Get the height, width and compute the threshold and offset for swipe.
         const {height, width} = Dimensions.get('window');
+        // TODO: Add width percentage and max swipe properties.
         const threshold = _.min([width / 2, 250]);
         const maxOffset = _.max([height, width]);
         const dx = gestureState.dx;
@@ -196,9 +195,12 @@ export default class Calendar extends Component {
             this.state.stage === DAY_SELECTOR ?
             <DaySelector
               focus={this.state.focus}
-              selected={this.state.selected}/> :
+              selected={this.props.selected}
+              onChange={(date) => this.props.onChange && this.props.onChange(date)}/> :
             this.state.stage === MONTH_SELECTOR ?
-            <MonthSelector/> :
+            <MonthSelector
+              focus={this.state.focus}
+              selected={this.props.selected}/> :
             this.state.stage === YEAR_SELECTOR ?
             <YearSelector/> :
             null
