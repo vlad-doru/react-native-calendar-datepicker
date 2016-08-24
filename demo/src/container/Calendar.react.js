@@ -5,6 +5,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import {
+  Dimensions,
+  PanResponder,
   LayoutAnimation,
   View,
   Text,
@@ -43,6 +45,7 @@ export default class Calendar extends Component {
   props: Props;
   state: State;
   static defaultProps: Props;
+  _panResponder: PanResponder;
 
   constructor(props: Props) {
     super(props);
@@ -53,6 +56,91 @@ export default class Calendar extends Component {
     }
   }
 
+  _slide = (dx : number) => {
+    this.refs.wrapper.setNativeProps({
+      style: {
+        left: dx,
+      }
+    })
+  };
+
+  componentWillMount() {
+    // Hook the pan responder to interpretate gestures.
+    this._panResponder = PanResponder.create({
+      // Ask to be the responder:
+      onStartShouldSetPanResponder: (evt, gestureState) => {
+        // Allow for swipe gestures only when we are in DAY_SELECTOR mode.
+        if (this.state.stage === DAY_SELECTOR) {
+          return true;
+        }
+        return false;
+      },
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+
+      onPanResponderMove: (evt, gestureState) => {
+        this._slide(gestureState.dx);
+      },
+      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderRelease: (evt, gestureState) => {
+        // The user has released all touches while this view is the
+        // responder. This typically means a gesture has succeeded
+
+        // Get the height, width and compute the threshold and offset for swipe.
+        const {height, width} = Dimensions.get('window');
+        const threshold = _.min([width / 2, 250]);
+        const maxOffset = _.max([height, width]);
+        const dx = gestureState.dx;
+
+        // If the threshold is met perform the necessary animations and updates.
+        if (Math.abs(dx) > threshold) {
+          // Animate to the outside of the device the current scene.
+          LayoutAnimation.linear(() => {
+            // After that animation, update the focus date and then swipe in
+            // the corresponding updated scene.
+            this.setState({
+              focus: Moment(this.state.focus).add(dx < 0 ? 1 : -1, 'month'),
+            });
+            LayoutAnimation.easeInEaseOut();
+            setTimeout(() => {
+              this._slide(dx < 0 ? maxOffset : -maxOffset)
+              setTimeout(() => {
+                LayoutAnimation.easeInEaseOut();
+                this._slide(0)
+              }, 0)
+            }, 0)
+          });
+          this._slide(dx > 0 ? maxOffset : -maxOffset);
+        } else {
+          LayoutAnimation.spring();
+          this._slide(0);
+        }
+      },
+      onPanResponderTerminate: (evt, gestureState) => {
+        // Another component has become the responder, so this gesture
+        // should be cancelled
+        LayoutAnimation.spring();
+        this._slide(0)
+      },
+      onShouldBlockNativeResponder: (evt, gestureState) => {
+        // Returns whether this component should block native components from becoming the JS
+        // responder. Returns true by default. Is currently only supported on android.
+        return true;
+      },
+    });
+  }
+
+  _stageText = () : string => {
+    if (this.state.stage === DAY_SELECTOR) {
+      return this.state.focus.format('MMMM YYYY');
+    } else if (this.state.stage === MONTH_SELECTOR) {
+      return this.state.focus.format('YYYY');
+    } else {
+      return '';
+    }
+  }
+
   _previousStage = () : void => {
     if (this.state.stage === DAY_SELECTOR) {
       this.setState({stage: MONTH_SELECTOR})
@@ -60,6 +148,7 @@ export default class Calendar extends Component {
     if (this.state.stage === MONTH_SELECTOR) {
       this.setState({stage: YEAR_SELECTOR})
     }
+    LayoutAnimation.easeInEaseOut();
   };
 
   _nextStage = () : void => {
@@ -69,12 +158,8 @@ export default class Calendar extends Component {
     if (this.state.stage === YEAR_SELECTOR) {
       this.setState({stage: MONTH_SELECTOR})
     }
-  };
-
-  componentWillUpdate() {
-    // Automatically insert animations.
     LayoutAnimation.easeInEaseOut();
-  }
+  };
 
   render() {
     return (
@@ -99,11 +184,14 @@ export default class Calendar extends Component {
                 underlayColor='transparent'
                 onPress={this._previousStage}
                 style={styles.previousStage}>
-              <Text>Stage selector</Text>
+              <Text>{this._stageText()}</Text>
             </TouchableHighlight>
           : null}
         </View>
-        <View style={styles.stageWrapper}>
+        <View
+          ref="wrapper"
+          style={styles.stageWrapper}
+          {...this._panResponder.panHandlers}>
           {
             this.state.stage === DAY_SELECTOR ?
             <DaySelector

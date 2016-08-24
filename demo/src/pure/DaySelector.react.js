@@ -20,7 +20,7 @@ type Props = {
   selected: Moment,
 };
 type State = {
-  days: Array<Array<number>>,
+  days: Array<Array<Object>>,
 };
 
 export default class DaySelector extends Component {
@@ -43,32 +43,54 @@ export default class DaySelector extends Component {
     }
   }
 
-  _computeDays(focus: Moment) : Array<Array<number>> {
+  _computeDays = (focus: Moment) : Array<Array<Object>> => {
     let result = [];
     const currentMonth = focus.month();
     let iterator = Moment(focus);
     while (iterator.month() === currentMonth) {
       if (iterator.weekday() === 0 || result.length === 0) {
-        result.push(_.times(7, _.constant(undefined)));
+        result.push(_.times(7, _.constant({})));
       }
       let week = result[result.length - 1];
-      week[iterator.weekday()] = iterator.date();
+      week[iterator.weekday()] = {
+        date: iterator.date(),
+        selected: iterator.isSame(this.props.selected, 'day'),
+      };
       // Add it to the result here.
       iterator.add(1, 'day');
     }
     return result;
-  }
+  };
 
   render() {
+    const weekViewStyle = StyleSheet.flatten([styles.weekView])
     return (
       <View style={[{
-        // Wrapper view default style.
+        // This helps us to have the same size for the wrapper, regardless of
+        // the number of weeks in a month.
+        paddingBottom: (6 - this.state.days.length) * weekViewStyle.height,
       },this.props.style]}>
+        <View style={[styles.headerView]}>
+          {_.map(Moment.weekdaysShort(true), (day) =>
+            <View key={day} style={[styles.daynameView]}>
+              <Text>
+                {day}
+              </Text>
+            </View>
+          )}
+        </View>
         {_.map(this.state.days, (week, i) =>
-          <View key={i} style={[styles.weekView]}>
+          <View key={i} style={[
+              styles.weekView,
+              i === this.state.days.length - 1 ? {
+                borderBottomWidth: 0,
+              } : null,
+            ]}>
             {_.map(week, (day, j) =>
               <View key={j} style={[styles.dayView]}>
-                <Text>{day}</Text>
+                <Text style={[]}>
+                  {day.date}
+                </Text>
               </View>
             )}
           </View>
@@ -79,16 +101,33 @@ export default class DaySelector extends Component {
 }
 DaySelector.defaultProps = {
   focus: Moment().startOf('month'),
-  selected: Moment()
+  selected: Moment(),
 };
 
 const styles = StyleSheet.create({
   weekView: {
     flexDirection: 'row',
+    margin: 0,
+    padding: 0,
+    height: 30,
+    alignItems: 'center',
     flex: 1,
     borderBottomWidth: 1,
   },
   dayView: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  headerView: {
+    flexDirection: 'row',
+    margin: 0,
+    padding: 0,
+    height: 30,
+    alignItems: 'center',
+    flex: 1,
+    borderBottomWidth: 1,
+  },
+  daynameView: {
     flex: 1,
     alignItems: 'center',
   },
