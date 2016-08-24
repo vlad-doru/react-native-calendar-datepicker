@@ -64,12 +64,12 @@ export default class DaySelector extends Component {
       // Add it to the result here.
       iterator.add(1, 'day');
     }
+    LayoutAnimation.easeInEaseOut();
     return result;
   };
 
   _onChange = (day : Object) : void => {
     let date = Moment(this.props.focus).add(day.date - 1 , 'day');
-    LayoutAnimation.easeInEaseOut();
     this.props.onChange && this.props.onChange(date);
   }
 
@@ -128,27 +128,22 @@ DaySelector.defaultProps = {
 const styles = StyleSheet.create({
   weekView: {
     flexDirection: 'row',
-    margin: 0,
-    padding: 0,
-    height: 50,
+    height: 40,
+    alignItems: 'center',
+    flex: 1,
+    borderBottomWidth: 1,
+  },
+  headerView: {
+    flexDirection: 'row',
+    height: 40,
     alignItems: 'center',
     flex: 1,
     borderBottomWidth: 1,
   },
   dayView: {
     flex: 1,
-    margin: 5,
     borderRadius: 10,
     alignItems: 'center',
-  },
-  headerView: {
-    flexDirection: 'row',
-    margin: 0,
-    padding: 0,
-    height: 50,
-    alignItems: 'center',
-    flex: 1,
-    borderBottomWidth: 1,
   },
   daynameView: {
     flex: 1,

@@ -30,7 +30,9 @@ class demo extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.date.format()}</Text>
+        <View>
+          <Text>{this.state.date.format()}</Text>
+        </View>
         <View style={{flexDirection: 'row'}}>
           <Calendar
             onChange={(date) => this.setState({date})}
@@ -48,8 +50,7 @@ class demo extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 30,
     backgroundColor: '#F5FCFF',
   },
 });

@@ -200,7 +200,8 @@ export default class Calendar extends Component {
             this.state.stage === MONTH_SELECTOR ?
             <MonthSelector
               focus={this.state.focus}
-              selected={this.props.selected}/> :
+              selected={this.props.selected}
+              onFocus={(focus) => {this.setState({focus}); this._nextStage()}}/> :
             this.state.stage === YEAR_SELECTOR ?
             <YearSelector/> :
             null
