@@ -14,6 +14,7 @@ import {
 
 // Component specific libraries.
 import _ from 'lodash';
+import Moment from 'moment';
 // Pure components importing.
 import YearSelector from '../pure/YearSelector.react';
 import MonthSelector from '../pure/MonthSelector.react';
@@ -22,6 +23,7 @@ import DaySelector from '../pure/DaySelector.react';
 type Props = {
   children?: any,
   style?: View.propTypes.style,
+  selected: Moment,
 };
 type Selector = 1 | 2 | 3;
 const DAY_SELECTOR = 1;
@@ -29,7 +31,13 @@ const MONTH_SELECTOR = 2;
 const YEAR_SELECTOR = 3;
 type State = {
   stage: Selector,
+  // Focus points to the first day of the month that is in current focus.
+  focus: Moment,
+  // The selected date that will be encapsulated in the state.
+  selected: Moment,
 };
+
+// TODO: Monitor change in props for selected.
 
 export default class Calendar extends Component {
   props: Props;
@@ -40,6 +48,8 @@ export default class Calendar extends Component {
     super(props);
     this.state = {
       stage: DAY_SELECTOR,
+      focus: Moment().startOf('month'),
+      selected: props.selected,
     }
   }
 
@@ -69,7 +79,6 @@ export default class Calendar extends Component {
   render() {
     return (
       <View style={[{
-
         // Wrapper view default style.
       },this.props.style]}>
         <View style={{
@@ -97,7 +106,9 @@ export default class Calendar extends Component {
         <View style={styles.stageWrapper}>
           {
             this.state.stage === DAY_SELECTOR ?
-            <DaySelector/> :
+            <DaySelector
+              focus={this.state.focus}
+              selected={this.state.selected}/> :
             this.state.stage === MONTH_SELECTOR ?
             <MonthSelector/> :
             this.state.stage === YEAR_SELECTOR ?
@@ -109,7 +120,9 @@ export default class Calendar extends Component {
     );
   }
 }
-Calendar.defaultProps = {};
+Calendar.defaultProps = {
+  selected: Moment(),
+};
 
 const styles = StyleSheet.create({
   previousStage: {
