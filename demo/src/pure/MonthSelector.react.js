@@ -18,7 +18,6 @@ import Moment from 'moment';
 type Props = {
   style?: View.propTypes.style,
   focus: Moment,
-  selected: Moment,
   onFocus?: (date: Moment) => void,
 };
 type State = {
@@ -85,7 +84,6 @@ export default class MonthSelector extends Component {
 }
 MonthSelector.defaultProps = {
   focus: Moment(),
-  selected: Moment(),
 };
 
 const styles = StyleSheet.create({

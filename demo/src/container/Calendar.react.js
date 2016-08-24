@@ -168,15 +168,6 @@ export default class Calendar extends Component {
         <View style={{
           flexDirection: 'row',
         }}>
-          {this.state.stage !== DAY_SELECTOR ?
-            <TouchableHighlight
-                activeOpacity={0.8}
-                underlayColor='transparent'
-                onPress={this._nextStage}
-                style={styles.nextStage}>
-              <Text>Back</Text>
-            </TouchableHighlight>
-          : null}
           {this.state.stage !== YEAR_SELECTOR ?
             <TouchableHighlight
                 activeOpacity={0.8}
@@ -200,10 +191,11 @@ export default class Calendar extends Component {
             this.state.stage === MONTH_SELECTOR ?
             <MonthSelector
               focus={this.state.focus}
-              selected={this.props.selected}
               onFocus={(focus) => {this.setState({focus}); this._nextStage()}}/> :
             this.state.stage === YEAR_SELECTOR ?
-            <YearSelector/> :
+            <YearSelector
+              focus={this.state.focus}
+              onFocus={(focus) => {this.setState({focus}); this._nextStage()}}/> :
             null
           }
         </View>
