@@ -17,8 +17,12 @@ import Moment from 'moment';
 
 type Props = {
   style?: View.propTypes.style,
+  // Controls the focus of the calendar.
   focus: Moment,
   onFocus?: (date: Moment) => void,
+  // Minimum and maximum valid dates.
+  minDate: Moment,
+  maxDate: Moment,
 };
 type State = {
   months: Array<Array<Object>>,
@@ -40,7 +44,12 @@ export default class MonthSelector extends Component {
         group = [];
         groups.push(group);
       }
+      // Check if the month is valid.
+      let maxChoice = Moment(this.props.focus).month(index).endOf('month');
+      let minChoice = Moment(this.props.focus).month(index).startOf('month');
       group.push({
+        valid: this.props.maxDate.diff(minChoice, 'seconds') >= 0 &&
+               this.props.minDate.diff(maxChoice, 'seconds') <= 0,
         name: month,
         index,
       });
@@ -53,7 +62,6 @@ export default class MonthSelector extends Component {
   _onFocus = (index : number) : void => {
     let focus = Moment(this.props.focus);
     focus.month(index);
-    console.log("ISH", focus);
     this.props.onFocus && this.props.onFocus(focus);
   }
 
@@ -67,11 +75,15 @@ export default class MonthSelector extends Component {
             {_.map(group, (month, j) =>
               <TouchableHighlight
                 key={j}
-                style={[styles.monthWrapper]}
-                activeOpacity={0.8}
+                style={styles.monthWrapper}
+                activeOpacity={month.valid ? 0.8 : 1}
                 underlayColor='transparent'
-                onPress={() => this._onFocus(month.index)}>
-                <Text style={[styles.monthText]}>
+                onPress={() => month.valid && this._onFocus(month.index)}>
+                <Text style={[
+                  // TODO: Add for text styles as properties.
+                  styles.monthText,
+                  month.valid ? null : styles.disabledMonth,
+                ]}>
                   {month.name}
                 </Text>
               </TouchableHighlight>
@@ -84,6 +96,8 @@ export default class MonthSelector extends Component {
 }
 MonthSelector.defaultProps = {
   focus: Moment(),
+  minDate: Moment(),
+  maxDate: Moment(),
 };
 
 const styles = StyleSheet.create({
@@ -93,11 +107,15 @@ const styles = StyleSheet.create({
   },
   monthWrapper: {
     flex: 1,
+  },
+  monthText: {
     margin: 5,
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
   },
-  monthText: {
+  disabledMonth: {
+    color: 'grey',
+    borderColor: 'grey',
   },
 });

@@ -18,9 +18,13 @@ import Moment from 'moment';
 
 type Props = {
   style?: View.propTypes.style,
+  // Focus and selection control.
   focus: Moment,
   selected: Moment,
   onChange?: (date: Moment) => void,
+  // Minimum and maximum dates.
+  minDate: Moment,
+  maxDate: Moment,
 };
 type State = {
   days: Array<Array<Object>>,
@@ -57,6 +61,8 @@ export default class DaySelector extends Component {
       }
       let week = result[result.length - 1];
       week[iterator.weekday()] = {
+        valid: this.props.maxDate.diff(iterator, 'seconds') >= 0 &&
+               this.props.minDate.diff(iterator, 'seconds') <= 0,
         date: iterator.date(),
         selected: iterator.isSame(props.selected, 'day'),
         today: iterator.isSame(Moment(), 'day'),
@@ -76,12 +82,7 @@ export default class DaySelector extends Component {
   render() {
     const weekViewStyle = StyleSheet.flatten([styles.weekView]) || {};
     return (
-      <View style={[{
-        // This helps us to have the same size for the wrapper, regardless of
-        // the number of weeks in a month.
-        // TODO: Enable this via property.
-        // paddingBottom: (6 - this.state.days.length) * Number(weekViewStyle.height),
-      },this.props.style]}>
+      <View style={[this.props.style]}>
         <View style={[styles.headerView]}>
           {_.map(Moment.weekdaysShort(true), (day) =>
             <View key={day} style={[styles.daynameView]}>
@@ -102,13 +103,14 @@ export default class DaySelector extends Component {
               <TouchableHighlight
                 key={j}
                 style={[styles.dayView]}
-                activeOpacity={0.8}
+                activeOpacity={day.valid ? 0.8 : 1}
                 underlayColor='transparent'
-                onPress={() => this._onChange(day)}>
+                onPress={() => day.valid && this._onChange(day)}>
                 <Text style={[
                   day.today ? styles.todayText : null,
                   day.selected ? styles.selectedText : null,
                   styles.dayText,
+                  day.valid ? null : styles.disabledText,
                 ]}>
                   {day.date}
                 </Text>
@@ -123,6 +125,8 @@ export default class DaySelector extends Component {
 DaySelector.defaultProps = {
   focus: Moment().startOf('month'),
   selected: Moment(),
+  minDate: Moment(),
+  maxDate: Moment(),
 };
 
 const styles = StyleSheet.create({
@@ -159,6 +163,10 @@ const styles = StyleSheet.create({
     width: 32,
     textAlign: 'center',
     margin: 5,
+  },
+  disabledText: {
+    color: 'grey',
+    borderColor: 'grey',
   },
   todayText: {
     fontWeight: 'bold',

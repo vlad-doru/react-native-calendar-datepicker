@@ -17,8 +17,12 @@ import Moment from 'moment';
 
 type Props = {
   style?: View.propTypes.style,
+  // Focus and onFocus for managing the calendar.
   focus: Moment,
   onFocus?: (date : Moment) => void,
+  // Minimum and maximum date allowed.
+  minDate: Moment,
+  maxDate: Moment,
 };
 type State = {
   year: Number,
@@ -49,9 +53,10 @@ export default class YearSelector extends Component {
       },this.props.style]}>
         <Text>{this.state.year}</Text>
         <Slider
-          // TODO: Property for minimum value.
-          minimumValue={1900}
-          maximumValue={2100}
+          minimumValue={this.props.minDate.year()}
+          maximumValue={this.props.maxDate.year()}
+          // TODO: Add a property for this.
+          minimumTrackTintColor="grey"
           step={1}
           value={this.props.focus.year()}
           onValueChange={(year) => this.setState({year})}
@@ -63,6 +68,8 @@ export default class YearSelector extends Component {
 }
 YearSelector.defaultProps = {
   focus: Moment().startOf('month'),
+  minDate: Moment(),
+  maxDate: Moment(),
 };
 
 const styles = StyleSheet.create({

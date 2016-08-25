@@ -23,10 +23,15 @@ import MonthSelector from '../pure/MonthSelector.react';
 import DaySelector from '../pure/DaySelector.react';
 
 type Props = {
-  children?: any,
   style?: View.propTypes.style,
+  // The core properties.
   selected: Moment,
   onChange?: (date: Moment) => void,
+  // Minimum and maximum date.
+  minDate: Moment,
+  maxDate: Moment,
+  // Limits the number of pixels after which the swipe is susccesful.
+  maxSwipeThreshold: number,
 };
 type Selector = 1 | 2 | 3;
 const DAY_SELECTOR = 1;
@@ -37,8 +42,6 @@ type State = {
   // Focus points to the first day of the month that is in current focus.
   focus: Moment,
 };
-
-// TODO: Monitor change in props for selected.
 
 export default class Calendar extends Component {
   props: Props;
@@ -87,8 +90,7 @@ export default class Calendar extends Component {
 
         // Get the height, width and compute the threshold and offset for swipe.
         const {height, width} = Dimensions.get('window');
-        // TODO: Add width percentage and max swipe properties.
-        const threshold = _.min([width / 2, 250]);
+        const threshold = _.min([width / 2, this.props.maxSwipeThreshold]);
         const maxOffset = _.max([height, width]);
         const dx = gestureState.dx;
 
@@ -160,6 +162,11 @@ export default class Calendar extends Component {
     LayoutAnimation.easeInEaseOut();
   };
 
+  _changeFocus = (focus : Moment) : void => {
+    this.setState({focus});
+    this._nextStage();
+  };
+
   render() {
     return (
       <View style={[{
@@ -187,15 +194,21 @@ export default class Calendar extends Component {
             <DaySelector
               focus={this.state.focus}
               selected={this.props.selected}
-              onChange={(date) => this.props.onChange && this.props.onChange(date)}/> :
+              onChange={(date) => this.props.onChange && this.props.onChange(date)}
+              minDate={this.props.minDate}
+              maxDate={this.props.maxDate}/> :
             this.state.stage === MONTH_SELECTOR ?
             <MonthSelector
               focus={this.state.focus}
-              onFocus={(focus) => {this.setState({focus}); this._nextStage()}}/> :
+              onFocus={this._changeFocus}
+              minDate={this.props.minDate}
+              maxDate={this.props.maxDate}/> :
             this.state.stage === YEAR_SELECTOR ?
             <YearSelector
               focus={this.state.focus}
-              onFocus={(focus) => {this.setState({focus}); this._nextStage()}}/> :
+              onFocus={this._changeFocus}
+              minDate={this.props.minDate}
+              maxDate={this.props.maxDate}/> :
             null
           }
         </View>
@@ -205,6 +218,9 @@ export default class Calendar extends Component {
 }
 Calendar.defaultProps = {
   selected: Moment(),
+  maxSwipeThreshold: 250,
+  minDate: Moment(),
+  maxDate: Moment().add(10, 'years'),
 };
 
 const styles = StyleSheet.create({
