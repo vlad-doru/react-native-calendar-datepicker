@@ -22,7 +22,7 @@ type Props = {
   style?: View.propTypes.style,
   // Focus and selection control.
   focus: Moment,
-  selected: Moment,
+  selected?: Moment,
   onChange?: (date: Moment) => void,
   onFocus?: (date: Moment) => void,
   // Minimum and maximum dates.
@@ -147,7 +147,7 @@ export default class DaySelector extends Component {
         valid: this.props.maxDate.diff(iterator, 'seconds') >= 0 &&
                this.props.minDate.diff(iterator, 'seconds') <= 0,
         date: iterator.date(),
-        selected: iterator.isSame(props.selected, 'day'),
+        selected: props.selected && iterator.isSame(props.selected, 'day'),
         today: iterator.isSame(Moment(), 'day'),
       };
       // Add it to the result here.
@@ -209,7 +209,6 @@ export default class DaySelector extends Component {
 }
 DaySelector.defaultProps = {
   focus: Moment().startOf('month'),
-  selected: Moment(),
   minDate: Moment(),
   maxDate: Moment(),
 };
@@ -241,7 +240,6 @@ const styles = StyleSheet.create({
   selectedText: {
     borderWidth: 1,
     borderRadius: 5,
-    fontWeight: 'bold',
   },
   dayText: {
     padding: 5,

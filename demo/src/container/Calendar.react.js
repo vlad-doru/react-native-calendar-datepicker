@@ -20,21 +20,28 @@ import YearSelector from '../pure/YearSelector.react';
 import MonthSelector from '../pure/MonthSelector.react';
 import DaySelector from '../pure/DaySelector.react';
 
+type Stage = "day" | "month" | "year";
+const DAY_SELECTOR : Stage = "day";
+const MONTH_SELECTOR : Stage = "month";
+const YEAR_SELECTOR : Stage = "year";
+
 type Props = {
-  style?: View.propTypes.style,
   // The core properties.
-  selected: Moment,
+  selected?: Moment,
   onChange?: (date: Moment) => void,
   // Minimum and maximum date.
   minDate: Moment,
   maxDate: Moment,
+  // The starting stage for selection. Defaults to day.
+  startStage: Stage,
+  // Styling properties.
+  style?: View.propTypes.style,
+  barView?: View.propTypes.style,
+  barText?: Text.propTypes.style,
+
 };
-type Selector = 1 | 2 | 3;
-const DAY_SELECTOR = 1;
-const MONTH_SELECTOR = 2;
-const YEAR_SELECTOR = 3;
 type State = {
-  stage: Selector,
+  stage: Stage,
   // Focus points to the first day of the month that is in current focus.
   focus: Moment,
 };
@@ -47,8 +54,8 @@ export default class Calendar extends Component {
   constructor(props: Props) {
     super(props);
     this.state = {
-      stage: DAY_SELECTOR,
-      focus: Moment().startOf('month'),
+      stage: props.startStage,
+      focus: Moment(props.selected).startOf('month'),
     }
   }
 
@@ -100,8 +107,10 @@ export default class Calendar extends Component {
                 activeOpacity={0.8}
                 underlayColor='transparent'
                 onPress={this._previousStage}
-                style={styles.previousStage}>
-              <Text>{this._stageText()}</Text>
+                style={[styles.barView, this.props.barView]}>
+              <Text style={this.props.barText}>
+                {this._stageText()}
+              </Text>
             </TouchableHighlight>
           : null}
         </View>
@@ -136,13 +145,13 @@ export default class Calendar extends Component {
   }
 }
 Calendar.defaultProps = {
-  selected: Moment(),
   minDate: Moment(),
   maxDate: Moment().add(10, 'years'),
+  startStage: DAY_SELECTOR,
 };
 
 const styles = StyleSheet.create({
-  previousStage: {
+  barView: {
     flex: 1,
     padding: 5,
     alignItems: 'center',

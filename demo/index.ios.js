@@ -14,7 +14,7 @@ import Calendar from './src/container/Calendar.react';
 import Moment from 'moment';
 
 type State = {
-  date: Moment,
+  date?: Moment,
 };
 
 class demo extends Component {
@@ -22,16 +22,18 @@ class demo extends Component {
 
   constructor(props: Object) {
     super(props);
-    this.state = {
-      date: Moment(),
-    };
+    this.state = {};
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View>
-          <Text>{this.state.date.format()}</Text>
+          <Text>
+            {this.state.date ?
+            this.state.date.format() :
+            "No date selected"}
+          </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
           <Calendar
