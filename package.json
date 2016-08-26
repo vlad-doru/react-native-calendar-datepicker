@@ -1,6 +1,6 @@
 {
   "name": "react-native-calendar-datepicker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
@@ -8,7 +8,7 @@
     "react": "15.2.1",
     "react-native": "^0.29.0"
   },
-  "description": "Reac-Native cross-platform, calendar component.",
+  "description": "Cross platform calendar datepicker for React Native.",
   "main": "index.js",
   "repository": {
     "type": "git",
