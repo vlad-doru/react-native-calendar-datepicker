@@ -26,6 +26,12 @@ class demo extends Component {
   }
 
   render() {
+    const BLUE = '#2196F3';
+    const WHITE = '#FFFFFF';
+    const GREY = '#BDBDBD';
+    const BLACK = '#424242';
+    const LIGHT_GREY = '#F5F5F5';
+
     return (
       <View style={styles.container}>
         <View>
@@ -45,48 +51,60 @@ class demo extends Component {
             //General Styling}
             style={{
               borderWidth: 1,
-              borderColor: 'grey',
+              borderColor: GREY,
               borderRadius: 5,
               alignSelf: 'center',
               marginTop: 20,
             }}
             barView={{
-              backgroundColor: '#2196F3',
+              backgroundColor: BLUE,
               padding: 10,
             }}
             barText={{
               fontWeight: 'bold',
-              color: 'white',
+              color: WHITE,
             }}
             stageView={{
               padding: 0,
             }}
             // Day selector styling
             dayHeaderView={{
-              backgroundColor: '#F5F5F5',
-              borderBottomColor: '#BDBDBD',
+              backgroundColor: LIGHT_GREY,
+              borderBottomColor: GREY,
             }}
             dayHeaderText={{
               fontWeight: 'bold',
-              color: '#424242'
+              color: BLACK,
             }}
             dayRowView={{
-              borderColor: '#BDBDBD',
+              borderColor: LIGHT_GREY,
               height: 38,
             }}
             dayText={{
-              color: '#424242'
+              color: BLACK,
+            }}
+            dayDisabledText={{
+              color: GREY,
             }}
             dayTodayText={{
               fontWeight: 'bold',
-              color: '#2196F3',
+              color: BLUE,
             }}
             daySelectedText={{
-              backgroundColor: '#2196F3',
-              borderRadius: 15,
               fontWeight: 'bold',
-              color: 'white',
+              backgroundColor: BLUE,
+              color: WHITE,
+              borderRadius: 15,
               overflow: 'hidden',
+            }}
+            // Styling month selector.
+            monthText={{
+              color: BLACK,
+              borderColor: BLACK,
+            }}
+            monthDisabledText={{
+              color: GREY,
+              borderColor: GREY,
             }}
             />
           <View style={{flex: 1}}></View>

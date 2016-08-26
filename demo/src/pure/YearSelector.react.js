@@ -49,9 +49,9 @@ export default class YearSelector extends Component {
   render() {
     return (
       <View style={[{
+        flex: 1,
         // Wrapper view default style.
       },this.props.style]}>
-        <Text>{this.state.year}</Text>
         <Slider
           minimumValue={this.props.minDate.year()}
           maximumValue={this.props.maxDate.year()}
@@ -62,6 +62,9 @@ export default class YearSelector extends Component {
           onValueChange={(year) => this.setState({year})}
           onSlidingComplete={(year) => this._onFocus(year)}
           />
+        <Text style={styles.yearText}>
+          {this.state.year}
+        </Text>
       </View>
     );
   }
@@ -73,4 +76,9 @@ YearSelector.defaultProps = {
 };
 
 const styles = StyleSheet.create({
+  yearText: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+  }
 });

@@ -23,6 +23,9 @@ type Props = {
   // Minimum and maximum valid dates.
   minDate: Moment,
   maxDate: Moment,
+  // Styling properties.
+  monthText?: Text.propTypes.style,
+  monthDisabledText?: Text.propTypes.style,
 };
 type State = {
   months: Array<Array<Object>>,
@@ -36,7 +39,7 @@ export default class MonthSelector extends Component {
   constructor(props: Object) {
     super(props);
 
-    const months = Moment.months();
+    const months = Moment.monthsShort();
     let groups = [];
     let group = [];
     _.map(months, (month, index) => {
@@ -71,18 +74,19 @@ export default class MonthSelector extends Component {
         // Wrapper view default style.
       },this.props.style]}>
         {_.map(this.state.months, (group, i) =>
-          <View key={i} style={[styles.groupWrapper]}>
+          <View key={i} style={[styles.group]}>
             {_.map(group, (month, j) =>
               <TouchableHighlight
                 key={j}
-                style={styles.monthWrapper}
+                style={{flex: 1}}
                 activeOpacity={month.valid ? 0.8 : 1}
                 underlayColor='transparent'
                 onPress={() => month.valid && this._onFocus(month.index)}>
                 <Text style={[
-                  // TODO: Add for text styles as properties.
                   styles.monthText,
-                  month.valid ? null : styles.disabledMonth,
+                  this.props.monthText,
+                  month.valid ? null : styles.disabledText,
+                  month.valid ? null : this.props.monthDisabledText,
                 ]}>
                   {month.name}
                 </Text>
@@ -101,21 +105,20 @@ MonthSelector.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  groupWrapper: {
+  group: {
     flex: 1,
     flexDirection: 'row',
   },
-  monthWrapper: {
-    flex: 1,
+  disabledText: {
+    borderColor: 'grey',
+    color: 'grey',
   },
   monthText: {
+    borderRadius: 5,
+    borderWidth: 1,
+    flex: 1,
     margin: 5,
     padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  disabledMonth: {
-    color: 'grey',
-    borderColor: 'grey',
+    textAlign: 'center',
   },
 });

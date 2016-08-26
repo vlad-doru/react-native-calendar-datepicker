@@ -48,6 +48,9 @@ type Props = {
   dayTodayText?: Text.propTypes.style,
   daySelectedText?: Text.propTypes.style,
   dayDisabledText?: Text.propTypes.style,
+  // Styling properties for selecting the month.
+  monthText?: Text.propTypes.style,
+  monthDisabledText?: Text.propTypes.style,
 };
 type State = {
   stage: Stage,
@@ -71,10 +74,8 @@ export default class Calendar extends Component {
   _stageText = () : string => {
     if (this.state.stage === DAY_SELECTOR) {
       return this.state.focus.format('MMMM YYYY');
-    } else if (this.state.stage === MONTH_SELECTOR) {
-      return this.state.focus.format('YYYY');
     } else {
-      return '';
+      return this.state.focus.format('YYYY');
     }
   }
 
@@ -104,24 +105,24 @@ export default class Calendar extends Component {
   };
 
   render() {
+    const barStyle = StyleSheet.flatten([styles.barView, this.props.barView]);
     return (
       <View style={[{
+        minWidth: 300,
         // Wrapper view default style.
       },this.props.style]}>
         <View style={{
           flexDirection: 'row',
         }}>
-          {this.state.stage !== YEAR_SELECTOR ?
-            <TouchableHighlight
-                activeOpacity={0.8}
-                underlayColor='transparent'
-                onPress={this._previousStage}
-                style={[styles.barView, this.props.barView]}>
-              <Text style={this.props.barText}>
-                {this._stageText()}
-              </Text>
-            </TouchableHighlight>
-          : null}
+          <TouchableHighlight
+              activeOpacity={this.state.stage !== YEAR_SELECTOR ? 0.8 : 1}
+              underlayColor={barStyle ? barStyle.backgroundColor : 'transparent'}
+              onPress={this._previousStage}
+              style={[styles.barView, this.props.barView]}>
+            <Text style={this.props.barText}>
+              {this._stageText()}
+            </Text>
+          </TouchableHighlight>
         </View>
         <View
           style={[styles.stageWrapper, this.props.stageView]}>
@@ -149,7 +150,11 @@ export default class Calendar extends Component {
               focus={this.state.focus}
               onFocus={this._changeFocus}
               minDate={this.props.minDate}
-              maxDate={this.props.maxDate}/> :
+              maxDate={this.props.maxDate}
+              // Styling properties
+              monthText={this.props.monthText}
+              monthDisabledText={this.props.monthDisabledText}
+              /> :
             this.state.stage === YEAR_SELECTOR ?
             <YearSelector
               focus={this.state.focus}

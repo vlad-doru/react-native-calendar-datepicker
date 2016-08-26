@@ -220,11 +220,11 @@ DaySelector.defaultProps = {
 
 const styles = StyleSheet.create({
   headerView: {
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    flex: 1,
     flexDirection: 'row',
     height: 35,
-    alignItems: 'center',
-    flex: 1,
-    borderBottomWidth: 1,
   },
   headerText: {
     flex: 1,
@@ -232,26 +232,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   rowView: {
-    flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
     borderBottomWidth: 1,
+    flex: 1,
+    flexDirection: 'row',
+    height: 35,
   },
   dayView: {
     flex: 1,
     margin: 5,
   },
   dayText: {
-    textAlign: 'center',
     flex: 1,
     padding: 5,
+    textAlign: 'center',
   },
   selectedText: {
-    borderWidth: 1,
     borderRadius: 17,
+    borderWidth: 1,
   },
   disabledText: {
-    color: 'grey',
     borderColor: 'grey',
+    color: 'grey',
   },
 });
