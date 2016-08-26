@@ -1,8 +1,9 @@
 {
   "name": "react-native-calendar-datepicker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependencies": {
-    "lodash": "^4.15.0"
+    "lodash": "^4.15.0",
+    "moment": "^2.14.1"
   },
   "description": "Cross platform calendar datepicker library for React Native.",
   "main": "index.js",
