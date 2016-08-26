@@ -34,11 +34,20 @@ type Props = {
   maxDate: Moment,
   // The starting stage for selection. Defaults to day.
   startStage: Stage,
-  // Styling properties.
+  // General styling properties.
   style?: View.propTypes.style,
   barView?: View.propTypes.style,
   barText?: Text.propTypes.style,
-
+  stageView?: View.propTypes.style,
+  // Styling properties for selecting the day.
+  dayHeaderView?: View.propTypes.style,
+  dayHeaderText?: Text.propTypes.style,
+  dayRowView?: View.propTypes.style,
+  dayView?: View.propTypes.style,
+  dayText?: Text.propTypes.style,
+  dayTodayText?: Text.propTypes.style,
+  daySelectedText?: Text.propTypes.style,
+  dayDisabledText?: Text.propTypes.style,
 };
 type State = {
   stage: Stage,
@@ -115,7 +124,7 @@ export default class Calendar extends Component {
           : null}
         </View>
         <View
-          style={styles.stageWrapper}>
+          style={[styles.stageWrapper, this.props.stageView]}>
           {
             this.state.stage === DAY_SELECTOR ?
             <DaySelector
@@ -124,7 +133,17 @@ export default class Calendar extends Component {
               onFocus={this._changeFocus}
               onChange={(date) => this.props.onChange && this.props.onChange(date)}
               minDate={this.props.minDate}
-              maxDate={this.props.maxDate}/> :
+              maxDate={this.props.maxDate}
+              // Transfer the corresponding styling properties.
+              dayHeaderView={this.props.dayHeaderView}
+              dayHeaderText={this.props.dayHeaderText}
+              dayRowView={this.props.dayRowView}
+              dayView={this.props.dayView}
+              dayText={this.props.dayText}
+              dayTodayText={this.props.dayTodayText}
+              daySelectedText={this.props.daySelectedText}
+              dayDisabledText={this.props.dayDisabledText}
+              /> :
             this.state.stage === MONTH_SELECTOR ?
             <MonthSelector
               focus={this.state.focus}
@@ -162,5 +181,6 @@ const styles = StyleSheet.create({
   },
   stageWrapper: {
     padding: 5,
+    overflow: 'hidden',
   },
 });

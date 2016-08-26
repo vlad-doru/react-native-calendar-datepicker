@@ -19,7 +19,6 @@ import _ from 'lodash';
 import Moment from 'moment';
 
 type Props = {
-  style?: View.propTypes.style,
   // Focus and selection control.
   focus: Moment,
   selected?: Moment,
@@ -28,6 +27,15 @@ type Props = {
   // Minimum and maximum dates.
   minDate: Moment,
   maxDate: Moment,
+  // Styling properties.
+  dayHeaderView?: View.propTypes.style,
+  dayHeaderText?: Text.propTypes.style,
+  dayRowView?: View.propTypes.style,
+  dayView?: View.propTypes.style,
+  dayText?: Text.propTypes.style,
+  dayTodayText?: Text.propTypes.style,
+  daySelectedText?: Text.propTypes.style,
+  dayDisabledText?: Text.propTypes.style,
 };
 type State = {
   days: Array<Array<Object>>,
@@ -53,7 +61,6 @@ export default class DaySelector extends Component {
       }
     })
   };
-
 
   componentWillMount() {
     // Hook the pan responder to interpretate gestures.
@@ -124,7 +131,6 @@ export default class DaySelector extends Component {
     });
   }
 
-
   componentWillReceiveProps(nextProps: Object) {
     if (this.props.focus != nextProps.focus ||
         this.props.selected != nextProps.selected) {
@@ -163,22 +169,20 @@ export default class DaySelector extends Component {
   }
 
   render() {
-    const weekViewStyle = StyleSheet.flatten([styles.weekView]) || {};
     return (
-      <View style={[this.props.style]}>
-        <View style={[styles.headerView]}>
+      <View>
+        <View style={[styles.headerView, this.props.dayHeaderView]}>
           {_.map(Moment.weekdaysShort(true), (day) =>
-            <View key={day} style={[styles.daynameView]}>
-              <Text>
-                {day}
-              </Text>
-            </View>
+            <Text key={day} style={[styles.headerText, this.props.dayHeaderText]}>
+              {day}
+            </Text>
           )}
         </View>
         <View ref="wrapper" {...this._panResponder.panHandlers}>
           {_.map(this.state.days, (week, i) =>
             <View key={i} style={[
-                styles.weekView,
+                styles.rowView,
+                this.props.dayRowView,
                 i === this.state.days.length - 1 ? {
                   borderBottomWidth: 0,
                 } : null,
@@ -186,15 +190,16 @@ export default class DaySelector extends Component {
               {_.map(week, (day, j) =>
                 <TouchableHighlight
                   key={j}
-                  style={[styles.dayView]}
+                  style={[styles.dayView, this.props.dayView]}
                   activeOpacity={day.valid ? 0.8 : 1}
                   underlayColor='transparent'
                   onPress={() => day.valid && this._onChange(day)}>
                   <Text style={[
-                    day.today ? styles.todayText : null,
-                    day.selected ? styles.selectedText : null,
                     styles.dayText,
+                    day.today ? this.props.dayTodayText : null,
+                    day.selected ? this.props.daySelectedText : null,
                     day.valid ? null : styles.disabledText,
+                    day.valid ? null : this.props.dayDisabledText,
                   ]}>
                     {day.date}
                   </Text>
@@ -214,45 +219,39 @@ DaySelector.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  weekView: {
+  headerView: {
     flexDirection: 'row',
-    height: 40,
+    height: 35,
     alignItems: 'center',
     flex: 1,
     borderBottomWidth: 1,
   },
-  headerView: {
+  headerText: {
+    flex: 1,
+    minWidth: 40,
+    textAlign: 'center',
+  },
+  rowView: {
     flexDirection: 'row',
-    height: 40,
     alignItems: 'center',
     flex: 1,
     borderBottomWidth: 1,
   },
   dayView: {
     flex: 1,
-    borderRadius: 10,
-    alignItems: 'center',
+    margin: 5,
   },
-  daynameView: {
+  dayText: {
+    textAlign: 'center',
     flex: 1,
-    alignItems: 'center',
+    padding: 5,
   },
   selectedText: {
     borderWidth: 1,
-    borderRadius: 5,
-  },
-  dayText: {
-    padding: 5,
-    width: 32,
-    textAlign: 'center',
-    margin: 5,
+    borderRadius: 17,
   },
   disabledText: {
     color: 'grey',
     borderColor: 'grey',
-  },
-  todayText: {
-    fontWeight: 'bold',
-    borderBottomWidth: 1,
   },
 });
