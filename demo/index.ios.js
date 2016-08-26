@@ -78,7 +78,7 @@ class demo extends Component {
             }}
             dayRowView={{
               borderColor: LIGHT_GREY,
-              height: 38,
+              height: 40,
             }}
             dayText={{
               color: BLACK,
@@ -105,6 +105,12 @@ class demo extends Component {
             monthDisabledText={{
               color: GREY,
               borderColor: GREY,
+            }}
+            // Styling year selector.
+            yearMinTintColor={BLUE}
+            yearMaxTintColor={GREY}
+            yearText={{
+              color: BLACK,
             }}
             />
           <View style={{flex: 1}}></View>

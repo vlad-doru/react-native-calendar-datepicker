@@ -6,6 +6,7 @@
 import React, { Component, PropTypes } from 'react';
 import {
   LayoutAnimation,
+  Slider,
   View,
   Text,
   TouchableHighlight,
@@ -51,6 +52,11 @@ type Props = {
   // Styling properties for selecting the month.
   monthText?: Text.propTypes.style,
   monthDisabledText?: Text.propTypes.style,
+  // Styling properties for selecting the year.
+  yearMinTintColor?: string,
+  yearMaxTintColor?: string,
+  yearSlider?: Slider.propTypes.style,
+  yearText?: Text.propTypes.style,
 };
 type State = {
   stage: Stage,
@@ -160,7 +166,13 @@ export default class Calendar extends Component {
               focus={this.state.focus}
               onFocus={this._changeFocus}
               minDate={this.props.minDate}
-              maxDate={this.props.maxDate}/> :
+              maxDate={this.props.maxDate}
+              // Styling properties
+              minimumTrackTintColor={this.props.yearMinTintColor}
+              maximumTrackTintColor={this.props.yearMaxTintColor}
+              yearSlider={this.props.yearSlider}
+              yearText={this.props.yearText}
+              /> :
             null
           }
         </View>
