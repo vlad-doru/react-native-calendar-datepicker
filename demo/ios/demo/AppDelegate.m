@@ -35,15 +35,15 @@
   return YES;
 }
 
-- (EUMShowTouchWindow *)window
-{
-  static EUMShowTouchWindow *customWindow = nil;
-  
-  if (!customWindow) {
-    customWindow = [[EUMShowTouchWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-  }
-  
-  return customWindow;
-}
+//- (EUMShowTouchWindow *)window
+//{
+//  static EUMShowTouchWindow *customWindow = nil;
+//  
+//  if (!customWindow) {
+//    customWindow = [[EUMShowTouchWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//  }
+//  
+//  return customWindow;
+//}
 
 @end
