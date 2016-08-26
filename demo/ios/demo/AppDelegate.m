@@ -11,6 +11,7 @@
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
+#import "EUMShowTouchWindow.h"
 
 @implementation AppDelegate
 
@@ -32,6 +33,17 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (EUMShowTouchWindow *)window
+{
+  static EUMShowTouchWindow *customWindow = nil;
+  
+  if (!customWindow) {
+    customWindow = [[EUMShowTouchWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  }
+  
+  return customWindow;
 }
 
 @end
