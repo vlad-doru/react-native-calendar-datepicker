@@ -197,6 +197,7 @@ export default class DaySelector extends Component {
                   <Text style={[
                     styles.dayText,
                     day.today ? this.props.dayTodayText : null,
+                    day.selected ? styles.daySelectedText : null,
                     day.selected ? this.props.daySelectedText : null,
                     day.valid ? null : styles.disabledText,
                     day.valid ? null : this.props.dayDisabledText,
@@ -248,8 +249,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   selectedText: {
-    borderRadius: 17,
+    borderRadius: 5,
     borderWidth: 1,
+    fontWeight: 'bold',
   },
   disabledText: {
     borderColor: 'grey',
