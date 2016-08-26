@@ -197,7 +197,7 @@ export default class DaySelector extends Component {
                   <Text style={[
                     styles.dayText,
                     day.today ? this.props.dayTodayText : null,
-                    day.selected ? styles.daySelectedText : null,
+                    day.selected ? styles.selectedText : null,
                     day.selected ? this.props.daySelectedText : null,
                     day.valid ? null : styles.disabledText,
                     day.valid ? null : this.props.dayDisabledText,

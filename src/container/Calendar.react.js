@@ -3,6 +3,8 @@
 * @flow
 */
 
+console.ignoredYellowBox = ['Warning: Overriding '];
+
 import React, { Component, PropTypes } from 'react';
 import {
   LayoutAnimation,
