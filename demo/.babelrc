@@ -1,8 +1,0 @@
-{
-	"retainLines": true,
-	"compact": true,
-	"comments": false,
-	"presets": ["react-native"],
-	"plugins": ["transform-flow-strip-types"],
-	"sourceMaps": false
-}
