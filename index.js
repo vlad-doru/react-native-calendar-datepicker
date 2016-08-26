@@ -1,3 +1,3 @@
-import Calendar from './src/container/Calendar';
+import Calendar from './src/container/Calendar.react';
 
 export default Calendar;
