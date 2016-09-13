@@ -196,6 +196,7 @@ export default class DaySelector extends Component {
                   onPress={() => day.valid && this._onChange(day)}>
                   <Text style={[
                     styles.dayText,
+                    this.props.dayText,
                     day.today ? this.props.dayTodayText : null,
                     day.selected ? styles.selectedText : null,
                     day.selected ? this.props.daySelectedText : null,
