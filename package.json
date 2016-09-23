@@ -1,6 +1,6 @@
 {
   "name": "react-native-calendar-datepicker",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "dependencies": {
     "lodash": "^4.15.0",
     "moment": "^2.14.1"

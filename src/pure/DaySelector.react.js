@@ -68,9 +68,12 @@ export default class DaySelector extends Component {
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        return Math.abs(gestureState.dx) > 5;
+      }
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+          return Math.abs(gestureState.dx) > 5;
+      },
       onPanResponderMove: (evt, gestureState) => {
         this._slide(gestureState.dx);
       },
