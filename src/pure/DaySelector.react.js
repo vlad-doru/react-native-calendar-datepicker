@@ -70,7 +70,7 @@ export default class DaySelector extends Component {
       onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         return Math.abs(gestureState.dx) > 5;
-      }
+      },
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
           return Math.abs(gestureState.dx) > 5;
       },
