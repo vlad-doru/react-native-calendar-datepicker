@@ -24,6 +24,7 @@ type Props = {
   selected?: Moment,
   onChange?: (date: Moment) => void,
   onFocus?: (date: Moment) => void,
+  slideThreshold?: number,
   // Minimum and maximum dates.
   minDate: Moment,
   maxDate: Moment,
@@ -84,7 +85,7 @@ export default class DaySelector extends Component {
 
         // Get the height, width and compute the threshold and offset for swipe.
         const {height, width} = Dimensions.get('window');
-        const threshold = _.min([width / 3, 250]);
+        const threshold = this.props.slideThreshold || _.min([width / 3, 250]);
         const maxOffset = _.max([height, width]);
         const dx = gestureState.dx;
         const newFocus = Moment(this.props.focus).add(dx < 0 ? 1 : -1, 'month');
