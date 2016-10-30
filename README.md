@@ -46,6 +46,7 @@ import Moment from 'moment';
 | *minDate* | Moment | **[Mandatory]** Minimum selectable date
 | *maxDate* | Moment | **[Mandatory]** Maximum selectable date
 | *startStage* | "day"/"month"/"year" | **[Default: "day"]** Whether you would like to select the day, month or year first.
+| *slideThreshold* | number | The number of pixels after which the slide event will be triggered. Default is min([width / 3, 250])
 
 ### Locale specific calendar
 
