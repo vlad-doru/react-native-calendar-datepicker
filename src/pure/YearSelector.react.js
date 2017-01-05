@@ -54,7 +54,7 @@ export default class YearSelector extends Component {
   render() {
     return (
       <View style={[{
-        flex: 1,
+        flexGrow: 1,
         // Wrapper view default style.
       },this.props.style]}>
         <Slider
