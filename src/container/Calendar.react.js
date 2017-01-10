@@ -48,6 +48,7 @@ type Props = {
   dayHeaderText?: Text.propTypes.style,
   dayRowView?: View.propTypes.style,
   dayView?: View.propTypes.style,
+  daySelectedView?: View.propTypes.style,
   dayText?: Text.propTypes.style,
   dayTodayText?: Text.propTypes.style,
   daySelectedText?: Text.propTypes.style,
@@ -151,6 +152,7 @@ export default class Calendar extends Component {
               dayHeaderText={this.props.dayHeaderText}
               dayRowView={this.props.dayRowView}
               dayView={this.props.dayView}
+              daySelectedView={this.props.daySelectedView}
               dayText={this.props.dayText}
               dayTodayText={this.props.dayTodayText}
               daySelectedText={this.props.daySelectedText}
@@ -193,7 +195,7 @@ Calendar.defaultProps = {
 
 const styles = StyleSheet.create({
   barView: {
-    flex: 1,
+    flexGrow: 1,
     padding: 5,
     alignItems: 'center',
   },

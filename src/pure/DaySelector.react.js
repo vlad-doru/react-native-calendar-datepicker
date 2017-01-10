@@ -33,6 +33,7 @@ type Props = {
   dayHeaderText?: Text.propTypes.style,
   dayRowView?: View.propTypes.style,
   dayView?: View.propTypes.style,
+  daySelectedView?: View.propTypes.style,
   dayText?: Text.propTypes.style,
   dayTodayText?: Text.propTypes.style,
   daySelectedText?: Text.propTypes.style,
@@ -194,7 +195,11 @@ export default class DaySelector extends Component {
               {_.map(week, (day, j) =>
                 <TouchableHighlight
                   key={j}
-                  style={[styles.dayView, this.props.dayView]}
+                  style={[
+                    styles.dayView,
+                    this.props.dayView,
+                    day.selected ? this.props.daySelectedView : null
+                  ]}
                   activeOpacity={day.valid ? 0.8 : 1}
                   underlayColor='transparent'
                   onPress={() => day.valid && this._onChange(day)}>
@@ -228,28 +233,28 @@ const styles = StyleSheet.create({
   headerView: {
     alignItems: 'center',
     borderBottomWidth: 1,
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     height: 35,
   },
   headerText: {
-    flex: 1,
+    flexGrow: 1,
     minWidth: 40,
     textAlign: 'center',
   },
   rowView: {
     alignItems: 'center',
     borderBottomWidth: 1,
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     height: 35,
   },
   dayView: {
-    flex: 1,
+    flexGrow: 1,
     margin: 5,
   },
   dayText: {
-    flex: 1,
+    flexGrow: 1,
     padding: 5,
     textAlign: 'center',
   },
