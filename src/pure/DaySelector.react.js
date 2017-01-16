@@ -143,6 +143,11 @@ export default class DaySelector extends Component {
         days: this._computeDays(nextProps),
       })
     }
+
+    if (this.props.monthOffset != nextProps.monthOffset && nextProps.monthOffset !== 0) {
+      const newFocus = Moment(this.props.focus).add(nextProps.monthOffset, 'month');
+      this.props.onFocus && this.props.onFocus(newFocus);
+    }
   }
 
   _computeDays = (props: Object) : Array<Array<Object>> => {
@@ -255,6 +260,7 @@ const styles = StyleSheet.create({
   },
   dayText: {
     flexGrow: 1,
+    minWidth: 30,
     padding: 5,
     textAlign: 'center',
   },
