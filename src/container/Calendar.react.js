@@ -13,7 +13,6 @@ import {
   Text,
   TouchableHighlight,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 
 // Component specific libraries.
