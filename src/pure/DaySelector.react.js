@@ -25,6 +25,7 @@ type Props = {
   onChange?: (date: Moment) => void,
   onFocus?: (date: Moment) => void,
   slideThreshold?: number,
+  monthOffset?: number,
   // Minimum and maximum dates.
   minDate: Moment,
   maxDate: Moment,

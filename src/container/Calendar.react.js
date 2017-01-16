@@ -48,6 +48,7 @@ type Props = {
   barView?: View.propTypes.style,
   barText?: Text.propTypes.style,
   stageView?: View.propTypes.style,
+  showArrows: boolean,
   // Styling properties for selecting the day.
   dayHeaderView?: View.propTypes.style,
   dayHeaderText?: Text.propTypes.style,
