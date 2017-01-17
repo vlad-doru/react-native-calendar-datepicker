@@ -103,8 +103,8 @@ Below is the list of properties that can be used for styling. For a concrete exa
 Main Developer: [Vlad-Doru Ion](http://github.com/vlad-doru)
 
 Pull requests by: 
-* jasongaare
-* igorrKurr 
+* [Jason Gaare](http://github.com/jasongaare)
+* [Igor Kurr](http://github.com/igorrKurr) 
 
 ## License
 
