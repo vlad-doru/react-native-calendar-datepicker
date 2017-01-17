@@ -255,6 +255,7 @@ const styles = StyleSheet.create({
   },
   dayText: {
     flexGrow: 1,
+    minWidth: 30,
     padding: 5,
     textAlign: 'center',
   },
