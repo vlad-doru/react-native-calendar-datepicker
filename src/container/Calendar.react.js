@@ -147,6 +147,7 @@ export default class Calendar extends Component {
           <View style={[styles.barView, this.props.barView]}>
             { this.props.showArrows && this.state.stage === DAY_SELECTOR && previousMonthValid ?
               <TouchableHighlight
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                 style={{ padding: 4 }}
                 underlayColor={barStyle ? barStyle.backgroundColor : 'transparent'}
                 onPress={this._previousMonth}
@@ -168,6 +169,7 @@ export default class Calendar extends Component {
 
             { this.props.showArrows && this.state.stage === DAY_SELECTOR && nextMonthValid ?
               <TouchableHighlight
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                 style={{ padding: 4 }}
                 underlayColor={barStyle ? barStyle.backgroundColor : 'transparent'}
                 onPress={this._nextMonth}
