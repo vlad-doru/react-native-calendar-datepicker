@@ -61,7 +61,7 @@ In its initial form the component has a minimalistic appearance, shown in the pi
 
 Styled example with arrows:
 
-<img src="https://github.com/jasongaare/react-native-calendar-datepicker/blob/master/styled-with-arrows.png?raw=true" width="200"/>
+<img src="https://github.com/jasongaare/react-native-calendar-datepicker/blob/SelectionArrows/styled-with-arrows.png?raw=true" width="200"/>
 
 Below is the list of properties that can be used for styling. For a concrete example, check out the [demo app link](https://github.com/vlad-doru/react-native-calendar-datepicker/blob/master/demo/index.ios.js)
 
