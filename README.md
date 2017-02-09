@@ -47,6 +47,7 @@ import Moment from 'moment';
 | *maxDate* | Moment | **[Mandatory]** Maximum selectable date
 | *startStage* | "day"/"month"/"year" | **[Default: "day"]** Whether you would like to select the day, month or year first.
 | *slideThreshold* | number | **[Default: min([width / 3, 250])]** The number of pixels after which the slide event will be triggered.
+| *showArrows* | boolean | **[Default: false]** Whether you would like to show arrow buttons for moving between months.
 
 ### Locale specific calendar
 
@@ -57,6 +58,10 @@ In order to change the locale of the calendar, just change the locale of Moment.
 In its initial form the component has a minimalistic appearance, shown in the picture below, but it can easily be customized.
 
 <img src="https://github.com/vlad-doru/react-native-calendar-datepicker/blob/master/barebones.png?raw=true" width="200"/>
+
+Styled example with arrows:
+
+<img src="https://github.com/jasongaare/react-native-calendar-datepicker/blob/SelectionArrows/styled-with-arrows.png?raw=true" width="200"/>
 
 Below is the list of properties that can be used for styling. For a concrete example, check out the [demo app link](https://github.com/vlad-doru/react-native-calendar-datepicker/blob/master/demo/index.ios.js)
 

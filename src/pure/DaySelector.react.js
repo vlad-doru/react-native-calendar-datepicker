@@ -25,6 +25,7 @@ type Props = {
   onChange?: (date: Moment) => void,
   onFocus?: (date: Moment) => void,
   slideThreshold?: number,
+  monthOffset?: number,
   // Minimum and maximum dates.
   minDate: Moment,
   maxDate: Moment,
@@ -142,6 +143,11 @@ export default class DaySelector extends Component {
       this.setState({
         days: this._computeDays(nextProps),
       })
+    }
+
+    if (this.props.monthOffset != nextProps.monthOffset && nextProps.monthOffset !== 0) {
+      const newFocus = Moment(this.props.focus).add(nextProps.monthOffset, 'month');
+      this.props.onFocus && this.props.onFocus(newFocus);
     }
   }
 

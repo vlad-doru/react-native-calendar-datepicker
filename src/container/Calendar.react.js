@@ -28,6 +28,10 @@ const DAY_SELECTOR : Stage = "day";
 const MONTH_SELECTOR : Stage = "month";
 const YEAR_SELECTOR : Stage = "year";
 
+// Unicode characters
+const LEFT_CHEVRON = '\u276E';
+const RIGHT_CHEVRON = '\u276F';
+
 type Props = {
   // The core properties.
   selected?: Moment,
@@ -43,6 +47,7 @@ type Props = {
   barView?: View.propTypes.style,
   barText?: Text.propTypes.style,
   stageView?: View.propTypes.style,
+  showArrows: boolean,
   // Styling properties for selecting the day.
   dayHeaderView?: View.propTypes.style,
   dayHeaderText?: Text.propTypes.style,
@@ -78,6 +83,7 @@ export default class Calendar extends Component {
     this.state = {
       stage: props.startStage,
       focus: Moment(props.selected).startOf('month'),
+      monthOffset: 0,
     }
   }
 
@@ -109,13 +115,27 @@ export default class Calendar extends Component {
     LayoutAnimation.easeInEaseOut();
   };
 
+  _previousMonth = () : void => {
+    this.setState({monthOffset: -1});
+  };
+
+  _nextMonth = () : void => {
+    this.setState({monthOffset: 1});
+  };
+
   _changeFocus = (focus : Moment) : void => {
-    this.setState({focus});
+    this.setState({focus, monthOffset: 0});
     this._nextStage();
   };
 
   render() {
     const barStyle = StyleSheet.flatten([styles.barView, this.props.barView]);
+
+    const previousMonth = Moment(this.state.focus).subtract(1, 'month');
+    const previousMonthValid = this.props.minDate.diff(Moment(previousMonth).endOf('month'), 'seconds') <= 0;
+    const nextMonth = Moment(this.state.focus).add(1, 'month');
+    const nextMonthValid = this.props.maxDate.diff(Moment(nextMonth).startOf('month'), 'seconds') >= 0;
+
     return (
       <View style={[{
         minWidth: 300,
@@ -124,15 +144,38 @@ export default class Calendar extends Component {
         <View style={{
           flexDirection: 'row',
         }}>
-          <TouchableHighlight
+          <View style={[styles.barView, this.props.barView]}>
+            { this.props.showArrows && this.state.stage === DAY_SELECTOR && previousMonthValid ?
+              <TouchableHighlight
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                underlayColor={barStyle ? barStyle.backgroundColor : 'transparent'}
+                onPress={this._previousMonth}
+              >
+                <Text style={this.props.barText}>{LEFT_CHEVRON}</Text>
+              </TouchableHighlight> : <View/>
+            }
+
+            <TouchableHighlight
               activeOpacity={this.state.stage !== YEAR_SELECTOR ? 0.8 : 1}
               underlayColor={barStyle ? barStyle.backgroundColor : 'transparent'}
               onPress={this._previousStage}
-              style={[styles.barView, this.props.barView]}>
-            <Text style={this.props.barText}>
-              {this._stageText()}
-            </Text>
-          </TouchableHighlight>
+              style={{ alignSelf: 'center' }}
+            >
+              <Text style={this.props.barText}>
+                {this._stageText()}
+              </Text>
+            </TouchableHighlight>
+
+            { this.props.showArrows && this.state.stage === DAY_SELECTOR && nextMonthValid ?
+              <TouchableHighlight
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                underlayColor={barStyle ? barStyle.backgroundColor : 'transparent'}
+                onPress={this._nextMonth}
+              >
+                <Text style={this.props.barText}>{RIGHT_CHEVRON}</Text>
+              </TouchableHighlight> : <View/>
+            }
+          </View>
         </View>
         <View
           style={[styles.stageWrapper, this.props.stageView]}>
@@ -143,6 +186,7 @@ export default class Calendar extends Component {
               selected={this.props.selected}
               onFocus={this._changeFocus}
               onChange={(date) => this.props.onChange && this.props.onChange(date)}
+              monthOffset={this.state.monthOffset}
               minDate={this.props.minDate}
               maxDate={this.props.maxDate}
               // Control properties
@@ -191,12 +235,15 @@ Calendar.defaultProps = {
   minDate: Moment(),
   maxDate: Moment().add(10, 'years'),
   startStage: DAY_SELECTOR,
+  showArrows: false,
 };
 
 const styles = StyleSheet.create({
   barView: {
     flexGrow: 1,
+    flexDirection: 'row',
     padding: 5,
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   nextStage: {
