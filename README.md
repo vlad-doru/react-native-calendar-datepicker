@@ -12,6 +12,8 @@ Here is a quick example of how it works, with custom appearance:
 
 `npm install --save react-native-calendar-datepicker`
 
+__Minimum react-native: "^0.33.0"__
+
 ## Basic Usage
 
 Getting started with this component is very very easy. However, the initial appearance is minimalistic, but the library offers the developer the ability to easily customize it.
