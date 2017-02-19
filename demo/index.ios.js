@@ -46,7 +46,7 @@ class demo extends Component {
           <Calendar
             onChange={(date) => this.setState({date})}
             selected={this.state.date}
-            finalStage="month"
+            //finalStage="month"
             minDate={Moment().startOf('day')}
             maxDate={Moment().add(10, 'years').startOf('day')}
             //General Styling}

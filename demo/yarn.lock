@@ -2155,14 +2155,6 @@ raw-body@~2.1.2:
     iconv-lite "0.4.13"
     unpipe "1.0.0"
 
-react:
-  version "15.4.2"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
-  dependencies:
-    fbjs "^0.8.4"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-
 react-clone-referenced-element@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-clone-referenced-element/-/react-clone-referenced-element-1.0.1.tgz#2bba8c69404c5e4a944398600bcc4c941f860682"
@@ -2171,7 +2163,14 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-native:
+react-native-calendar-datepicker:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-calendar-datepicker/-/react-native-calendar-datepicker-1.2.2.tgz#d51aef4f155aeaec9ac8fd9874776a49411b8fea"
+  dependencies:
+    lodash "^4.15.0"
+    moment "^2.14.1"
+
+react-native@^0.41.2:
   version "0.41.2"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.41.2.tgz#c6f486b8450a9909e6fed2dfd2c2af946563bf4f"
   dependencies:
@@ -2251,13 +2250,6 @@ react-native:
     xmldoc "^0.4.0"
     yargs "^6.4.0"
 
-react-native-calendar-datepicker@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-calendar-datepicker/-/react-native-calendar-datepicker-1.2.1.tgz#d14716f6851c138f71f38b73d3359c28cf50bed5"
-  dependencies:
-    lodash "^4.15.0"
-    moment "^2.14.1"
-
 react-proxy@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-1.1.8.tgz#9dbfd9d927528c3aa9f444e4558c37830ab8c26a"
@@ -2275,6 +2267,14 @@ react-transform-hmr@^1.0.4:
   dependencies:
     global "^4.3.0"
     react-proxy "^1.1.7"
+
+react@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
+  dependencies:
+    fbjs "^0.8.4"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
