@@ -48,6 +48,7 @@ import Moment from 'moment';
 | *minDate* | Moment | **[Mandatory]** Minimum selectable date
 | *maxDate* | Moment | **[Mandatory]** Maximum selectable date
 | *startStage* | "day"/"month"/"year" | **[Default: "day"]** Whether you would like to select the day, month or year first.
+| *finalStage* | "day"/"month"/"year" | **[Default: "day"]** The last level of selection you want.
 | *slideThreshold* | number | **[Default: min([width / 3, 250])]** The number of pixels after which the slide event will be triggered.
 | *showArrows* | boolean | **[Default: false]** Whether you would like to show arrow buttons for moving between months.
 
@@ -83,6 +84,7 @@ Below is the list of properties that can be used for styling. For a concrete exa
 | dayDisabledText | Text.propTypes.style | Styling unavailable dates in the calendar
 | monthText | Text.propTypes.style | Styling the text for each month in the month selector
 | monthDisabledText | Text.propTypes.style | Styling unavailable months
+| monthSelectedText | Text.propTypes.style | Styling selected month
 | yearMinTintColor | string | Styling left side of year slider
 | yearMaxTintColor | string | Styling right side of year slider
 | yearSlider | Slider.propTypes.style | Styling the year slider
