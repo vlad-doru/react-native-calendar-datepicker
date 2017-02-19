@@ -41,7 +41,11 @@ type Props = {
   minDate: Moment,
   maxDate: Moment,
   // The starting stage for selection. Defaults to day.
+  // Can be overwritten by finalStage.
   startStage: Stage,
+  // The final stage for selection. Default to day. If month then the user will
+  // not be able to select the month.
+  finalStage: Stage,
   // General styling properties.
   style?: View.propTypes.style,
   barView?: View.propTypes.style,
@@ -61,6 +65,7 @@ type Props = {
   // Styling properties for selecting the month.
   monthText?: Text.propTypes.style,
   monthDisabledText?: Text.propTypes.style,
+  monthSelectedText?: Text.propTypes.style,
   // Styling properties for selecting the year.
   yearMinTintColor?: string,
   yearMaxTintColor?: string,
@@ -81,8 +86,10 @@ export default class Calendar extends Component {
 
   constructor(props: Props) {
     super(props);
+    const stage = String(props.startStage) < String(props.finalStage) ?
+                  props.finalStage : props.startStage;
     this.state = {
-      stage: props.startStage,
+      stage: stage,
       focus: Moment(props.selected).startOf('month'),
       monthOffset: 0,
     }
@@ -107,10 +114,6 @@ export default class Calendar extends Component {
   };
 
   _nextStage = () : void => {
-    // If we are at the final stage we do not go further.
-    if (this.props.finalStage == this.state.stage) {
-      return;
-    }
     if (this.state.stage === MONTH_SELECTOR) {
       this.setState({stage: DAY_SELECTOR})
     }
@@ -130,7 +133,12 @@ export default class Calendar extends Component {
 
   _changeFocus = (focus : Moment) : void => {
     this.setState({focus, monthOffset: 0});
-    this._nextStage();
+    if (this.props.finalStage != DAY_SELECTOR &&
+        this.state.stage == this.props.finalStage) {
+      this.props.onChange && this.props.onChange(focus);
+    } else {
+      this._nextStage();
+    }
   };
 
   render() {
@@ -210,12 +218,14 @@ export default class Calendar extends Component {
             this.state.stage === MONTH_SELECTOR ?
             <MonthSelector
               focus={this.state.focus}
+              selected={this.props.selected}
               onFocus={this._changeFocus}
               minDate={this.props.minDate}
               maxDate={this.props.maxDate}
               // Styling properties
               monthText={this.props.monthText}
               monthDisabledText={this.props.monthDisabledText}
+              selectedText={this.props.monthSelectedText}
               /> :
             this.state.stage === YEAR_SELECTOR ?
             <YearSelector
@@ -240,6 +250,7 @@ Calendar.defaultProps = {
   minDate: Moment(),
   maxDate: Moment().add(10, 'years'),
   startStage: DAY_SELECTOR,
+  finalStage: DAY_SELECTOR,
   showArrows: true,
 };
 

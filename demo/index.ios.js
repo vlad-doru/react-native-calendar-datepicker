@@ -95,6 +95,7 @@ class demo extends Component {
               backgroundColor: BLUE,
               color: WHITE,
               borderRadius: 15,
+              borderColor: "transparent",
               overflow: 'hidden',
             }}
             // Styling month selector.
@@ -105,6 +106,12 @@ class demo extends Component {
             monthDisabledText={{
               color: GREY,
               borderColor: GREY,
+            }}
+            monthSelectedText={{
+              fontWeight: 'bold',
+              backgroundColor: BLUE,
+              color: WHITE,
+              overflow: 'hidden',
             }}
             // Styling year selector.
             yearMinTintColor={BLUE}

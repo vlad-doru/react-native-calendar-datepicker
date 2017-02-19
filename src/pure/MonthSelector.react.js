@@ -5,6 +5,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import {
+  LayoutAnimation,
   TouchableHighlight,
   View,
   Text,
@@ -16,6 +17,8 @@ import _ from 'lodash';
 import Moment from 'moment';
 
 type Props = {
+  selected?: Moment,
+  // Styling
   style?: View.propTypes.style,
   // Controls the focus of the calendar.
   focus: Moment,
@@ -26,9 +29,11 @@ type Props = {
   // Styling properties.
   monthText?: Text.propTypes.style,
   monthDisabledText?: Text.propTypes.style,
+  selectedText?: Text.propTypes.style,
 };
 type State = {
   months: Array<Array<Object>>,
+  selectedMonth?: number,
 };
 
 export default class MonthSelector extends Component {
@@ -62,6 +67,14 @@ export default class MonthSelector extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps: Object) {
+    if (this.props.selected != nextProps.selected) {
+      this.setState({
+        selectedMonth: nextProps.selected && nextProps.selected.month(),
+      })
+    }
+  }
+
   _onFocus = (index : number) : void => {
     let focus = Moment(this.props.focus);
     focus.month(index);
@@ -79,7 +92,7 @@ export default class MonthSelector extends Component {
               <TouchableHighlight
                 key={j}
                 style={{flex: 1}}
-                activeOpacity={month.valid ? 0.8 : 1}
+                activeOpacity={1}
                 underlayColor='transparent'
                 onPress={() => month.valid && this._onFocus(month.index)}>
                 <Text style={[
@@ -87,6 +100,7 @@ export default class MonthSelector extends Component {
                   this.props.monthText,
                   month.valid ? null : styles.disabledText,
                   month.valid ? null : this.props.monthDisabledText,
+                  month.index === this.state.selectedMonth ? this.props.selectedText : null,
                 ]}>
                   {month.name}
                 </Text>
