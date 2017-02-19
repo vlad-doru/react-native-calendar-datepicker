@@ -239,28 +239,28 @@ const styles = StyleSheet.create({
   headerView: {
     alignItems: 'center',
     borderBottomWidth: 1,
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     height: 35,
   },
   headerText: {
-    flex: 1,
+    flexGrow: 1,
     minWidth: 40,
     textAlign: 'center',
   },
   rowView: {
     alignItems: 'center',
     borderBottomWidth: 1,
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     height: 35,
   },
   dayView: {
-    flex: 1,
+    flexGrow: 1,
     margin: 5,
   },
   dayText: {
-    flex: 1,
+    flexGrow: 1,
     minWidth: 30,
     padding: 5,
     textAlign: 'center',

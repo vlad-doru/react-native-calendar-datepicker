@@ -91,7 +91,7 @@ export default class MonthSelector extends Component {
             {_.map(group, (month, j) =>
               <TouchableHighlight
                 key={j}
-                style={{flex: 1}}
+                style={{flexGrow: 1}}
                 activeOpacity={1}
                 underlayColor='transparent'
                 onPress={() => month.valid && this._onFocus(month.index)}>
@@ -120,7 +120,7 @@ MonthSelector.defaultProps = {
 
 const styles = StyleSheet.create({
   group: {
-    flex: 1,
+    //flexGrow: 1,
     flexDirection: 'row',
   },
   disabledText: {
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   monthText: {
     borderRadius: 5,
     borderWidth: 1,
-    flex: 1,
+    flexGrow: 1,
     margin: 5,
     padding: 10,
     textAlign: 'center',

@@ -256,7 +256,7 @@ Calendar.defaultProps = {
 
 const styles = StyleSheet.create({
   barView: {
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     padding: 5,
     justifyContent: 'space-between',

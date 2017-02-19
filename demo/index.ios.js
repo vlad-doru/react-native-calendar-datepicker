@@ -42,10 +42,11 @@ class demo extends Component {
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <View style={{flex: 1}}></View>
+          <View style={{flexGrow: 1}}></View>
           <Calendar
             onChange={(date) => this.setState({date})}
             selected={this.state.date}
+            finalStage="month"
             minDate={Moment().startOf('day')}
             maxDate={Moment().add(10, 'years').startOf('day')}
             //General Styling}
@@ -120,7 +121,7 @@ class demo extends Component {
               color: BLACK,
             }}
             />
-          <View style={{flex: 1}}></View>
+          <View style={{flexGrow: 1}}></View>
         </View>
       </View>
     );
@@ -129,7 +130,7 @@ class demo extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     paddingTop: 40,
     backgroundColor: '#F5FCFF',
   },
