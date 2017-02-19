@@ -71,6 +71,7 @@ type State = {
   stage: Stage,
   // Focus points to the first day of the month that is in current focus.
   focus: Moment,
+  monthOffset?: number,
 };
 
 export default class Calendar extends Component {
@@ -106,6 +107,10 @@ export default class Calendar extends Component {
   };
 
   _nextStage = () : void => {
+    // If we are at the final stage we do not go further.
+    if (this.props.finalStage == this.state.stage) {
+      return;
+    }
     if (this.state.stage === MONTH_SELECTOR) {
       this.setState({stage: DAY_SELECTOR})
     }
@@ -235,12 +240,12 @@ Calendar.defaultProps = {
   minDate: Moment(),
   maxDate: Moment().add(10, 'years'),
   startStage: DAY_SELECTOR,
-  showArrows: false,
+  showArrows: true,
 };
 
 const styles = StyleSheet.create({
   barView: {
-    flexGrow: 1,
+    flex: 1,
     flexDirection: 'row',
     padding: 5,
     justifyContent: 'space-between',
