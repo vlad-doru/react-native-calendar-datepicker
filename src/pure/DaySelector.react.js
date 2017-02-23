@@ -162,7 +162,6 @@ export default class DaySelector extends Component {
     else if ( selected.isAfter(selectedEnd) || selected.isAfter(iterator) || iterator.isAfter(selectedEnd) ) {
       return false;
     }
-    console.log(selected, selectedEnd, iterator);
     return true;
   }
 
