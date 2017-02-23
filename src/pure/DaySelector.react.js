@@ -22,6 +22,7 @@ type Props = {
   // Focus and selection control.
   focus: Moment,
   selected?: Moment,
+  selectedEnd?: Moment,
   onChange?: (date: Moment) => void,
   onFocus?: (date: Moment) => void,
   slideThreshold?: number,
@@ -151,6 +152,19 @@ export default class DaySelector extends Component {
     }
   }
 
+  _selectChecker = ({ selected, selectedEnd, iterator }) => {
+    if( !selected ) {
+      return false;
+    }
+    else if ( !selectedEnd ) {
+      return selected && iterator.isSame(selected, 'day');
+    }
+    else if ( selected.isAfter(selectedEnd) || selected.isAfter(iterator) || iterator.isAfter(selectedEnd) ) {
+      return false;
+    }
+    return true;
+  }
+
   _computeDays = (props: Object) : Array<Array<Object>> => {
     let result = [];
     const currentMonth = props.focus.month();
@@ -164,7 +178,7 @@ export default class DaySelector extends Component {
         valid: this.props.maxDate.diff(iterator, 'seconds') >= 0 &&
                this.props.minDate.diff(iterator, 'seconds') <= 0,
         date: iterator.date(),
-        selected: props.selected && iterator.isSame(props.selected, 'day'),
+        selected: this._selectChecker({ selected: props.selected, selectedEnd: props.selectedEnd, iterator }),
         today: iterator.isSame(Moment(), 'day'),
       };
       // Add it to the result here.
