@@ -12,6 +12,7 @@ import {
   View,
   Text,
   StyleSheet,
+  Platform
 } from 'react-native';
 
 // Component specific libraries.
@@ -60,7 +61,7 @@ export default class DaySelector extends Component {
   _slide = (dx : number) => {
     this.refs.wrapper.setNativeProps({
       style: {
-        left: dx,
+        left: Platform.OS === 'ios' ? dx : 0,
       }
     })
   };
