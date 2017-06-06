@@ -60,6 +60,7 @@ type Props = {
   daySelectedView?: View.propTypes.style,
   dayText?: Text.propTypes.style,
   dayTodayText?: Text.propTypes.style,
+  daysArray: Array,
   daySelectedText?: Text.propTypes.style,
   dayDisabledText?: Text.propTypes.style,
   // Styling properties for selecting the month.
