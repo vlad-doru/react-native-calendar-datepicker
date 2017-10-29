@@ -33,7 +33,6 @@ type Props = {
 };
 type State = {
   months: Array<Array<Object>>,
-  selectedMonth?: number,
 };
 
 export default class MonthSelector extends Component {
@@ -67,14 +66,6 @@ export default class MonthSelector extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps: Object) {
-    if (this.props.selected != nextProps.selected) {
-      this.setState({
-        selectedMonth: nextProps.selected && nextProps.selected.month(),
-      })
-    }
-  }
-
   _onFocus = (index : number) : void => {
     let focus = Moment(this.props.focus);
     focus.month(index);
@@ -100,7 +91,7 @@ export default class MonthSelector extends Component {
                   this.props.monthText,
                   month.valid ? null : styles.disabledText,
                   month.valid ? null : this.props.monthDisabledText,
-                  month.index === this.state.selectedMonth ? this.props.selectedText : null,
+                  month.index ===  (this.props.selected && this.props.selected.month()) ? this.props.selectedText : null,
                 ]}>
                   {month.name}
                 </Text>
