@@ -90,8 +90,6 @@ Below is the list of properties that can be used for styling. For a concrete exa
 | yearSlider | Slider.propTypes.style | Styling the year slider
 | yearText | Text.propTypes.style | Styling the year text
 
-
-
 ## TODO
 
 - [ ] Add unit tests
