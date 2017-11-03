@@ -73,6 +73,7 @@ type Props = {
   yearMaxTintColor?: string,
   yearSlider?: Slider.propTypes.style,
   yearText?: Text.propTypes.style,
+  yearSelectorType?: string,
 };
 type State = {
   stage: Stage,
@@ -240,6 +241,7 @@ export default class Calendar extends Component {
               maximumTrackTintColor={this.props.yearMaxTintColor}
               yearSlider={this.props.yearSlider}
               yearText={this.props.yearText}
+              yearSelectorType={this.props.yearSelectorType}
               /> :
             null
           }
@@ -254,6 +256,7 @@ Calendar.defaultProps = {
   startStage: DAY_SELECTOR,
   finalStage: DAY_SELECTOR,
   showArrows: true,
+  yearSelectorType: 'slider',
 };
 
 const styles = StyleSheet.create({
