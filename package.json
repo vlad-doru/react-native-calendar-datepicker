@@ -4,7 +4,8 @@
   "dependencies": {
     "lodash": "^4.15.0",
     "moment": "^2.14.1",
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "react-native-vector-icons": "^4.4.2"
   },
   "description": "Cross platform calendar datepicker library for React Native.",
   "main": "index.js",

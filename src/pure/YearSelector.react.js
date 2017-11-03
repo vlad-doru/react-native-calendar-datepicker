@@ -10,12 +10,15 @@ import {
   View,
   Text,
   StyleSheet,
+  Picker,
+  Button
 } from 'react-native';
 import ViewPropTypes from '../util/ViewPropTypes';
 
 // Component specific libraries.
 import _ from 'lodash';
 import Moment from 'moment';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 type Props = {
   style?: ViewPropTypes.style,
@@ -54,26 +57,25 @@ export default class YearSelector extends Component {
   }
 
   render() {
+    const values = Array(this.props.maxDate.year() - this.props.minDate.year() + 1).fill().map((_,i) => (
+      <Picker.Item
+        key={`${this.props.minDate.year() + i}`}
+        value={`${this.props.minDate.year() + i}`}
+        label={`${this.props.minDate.year() + i}`}
+      />
+    ));
     return (
       <View style={[{
         flexGrow: 1,
         // Wrapper view default style.
       },this.props.style]}>
-        <Slider
-          minimumValue={this.props.minDate.year()}
-          maximumValue={this.props.maxDate.year()}
-          // TODO: Add a property for this.
-          minimumTrackTintColor={this.props.minimumTrackTintColor}
-          maximumTrackTintColor={this.props.maximumTrackTintColor}
-          step={1}
-          value={this.props.focus.year()}
+        <Picker
+          selectedValue={this.state.year}
           onValueChange={(year) => this.setState({year})}
-          onSlidingComplete={(year) => this._onFocus(year)}
-          style={[this.props.yearSlider]}
-          />
-        <Text style={[styles.yearText, this.props.yearText]}>
-          {this.state.year}
-        </Text>
+        >
+        {values}
+        </Picker>
+        <Icon name="check" size={18} color={"rgba(255,255,255, 0.6)"} />
       </View>
     );
   }
