@@ -10,7 +10,7 @@ Here is a quick example of how it works, with custom appearance:
 
 ## Installation
 
-`npm install --save react-native-calendar-datepicker`
+`npm install --save react-native-calendar-datepicker && react-native link react-native-vector-icons`
 
 __Minimum react-native: "^0.33.0"__
 
@@ -50,7 +50,8 @@ import Moment from 'moment';
 | *startStage* | "day"/"month"/"year" | **[Default: "day"]** Whether you would like to select the day, month or year first.
 | *finalStage* | "day"/"month"/"year" | **[Default: "day"]** The last level of selection you want.
 | *slideThreshold* | number | **[Default: min([width / 3, 250])]** The number of pixels after which the slide event will be triggered.
-| *showArrows* | boolean | **[Default: false]** Whether you would like to show arrow buttons for moving between months.
+| *showArrows* | boolean | **[Default: true]** Whether you would like to show arrow buttons for moving between months.
+| *yearSelectorType* | "slider" or "dropdown" | **[Default: "slider"]** Whether you would like to use a slider or dropdown for selectin the year in your calendar
 
 ### Locale specific calendar
 
@@ -109,9 +110,10 @@ Below is the list of properties that can be used for styling. For a concrete exa
 
 Main Developer: [Vlad-Doru Ion](http://github.com/vlad-doru)
 
-Pull requests by: 
+Pull requests by:
 * [Jason Gaare](http://github.com/jasongaare)
-* [Igor Kurr](http://github.com/igorrKurr) 
+* [Igor Kurr](http://github.com/igorrKurr)
+* [Hossein Ahmadian-Yazdi](http://github.com/hahmadia) 
 
 ## License
 

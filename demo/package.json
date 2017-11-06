@@ -8,6 +8,6 @@
   "dependencies": {
     "react": "^15.4.2",
     "react-native": "^0.41.2",
-    "react-native-calendar-datepicker": "^1.2.2"
+    "react-native-calendar-datepicker": "git://github.com/EdevMosaic/react-native-calendar-datepicker.git#year-selector-dropdown"
   }
 }

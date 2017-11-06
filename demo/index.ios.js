@@ -49,6 +49,7 @@ class demo extends Component {
             //finalStage="month"
             minDate={Moment().startOf('day')}
             maxDate={Moment().add(10, 'years').startOf('day')}
+            yearSelectorType={'dropdown'}
             //General Styling}
             style={{
               borderWidth: 1,
