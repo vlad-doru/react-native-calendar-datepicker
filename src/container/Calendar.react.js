@@ -5,7 +5,8 @@
 
 console.ignoredYellowBox = ['Warning: Overriding '];
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   LayoutAnimation,
   Slider,
@@ -19,6 +20,7 @@ import {
 import _ from 'lodash';
 import Moment from 'moment';
 // Pure components importing.
+import ViewPropTypes from '../util/ViewPropTypes';
 import YearSelector from '../pure/YearSelector.react';
 import MonthSelector from '../pure/MonthSelector.react';
 import DaySelector from '../pure/DaySelector.react';
@@ -47,17 +49,17 @@ type Props = {
   // not be able to select the month.
   finalStage: Stage,
   // General styling properties.
-  style?: View.propTypes.style,
-  barView?: View.propTypes.style,
+  style?: ViewPropTypes.style,
+  barView?: ViewPropTypes.style,
   barText?: Text.propTypes.style,
-  stageView?: View.propTypes.style,
+  stageView?: ViewPropTypes.style,
   showArrows: boolean,
   // Styling properties for selecting the day.
-  dayHeaderView?: View.propTypes.style,
+  dayHeaderView?: ViewPropTypes.style,
   dayHeaderText?: Text.propTypes.style,
-  dayRowView?: View.propTypes.style,
-  dayView?: View.propTypes.style,
-  daySelectedView?: View.propTypes.style,
+  dayRowView?: ViewPropTypes.style,
+  dayView?: ViewPropTypes.style,
+  daySelectedView?: ViewPropTypes.style,
   dayText?: Text.propTypes.style,
   dayTodayText?: Text.propTypes.style,
   daySelectedText?: Text.propTypes.style,

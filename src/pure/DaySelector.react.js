@@ -3,7 +3,8 @@
 * @flow
 */
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   Dimensions,
   PanResponder,
@@ -14,6 +15,7 @@ import {
   StyleSheet,
   Platform
 } from 'react-native';
+import ViewPropTypes from '../util/ViewPropTypes';
 
 // Component specific libraries.
 import _ from 'lodash';
@@ -31,11 +33,11 @@ type Props = {
   minDate: Moment,
   maxDate: Moment,
   // Styling properties.
-  dayHeaderView?: View.propTypes.style,
+  dayHeaderView?: ViewPropTypes.style,
   dayHeaderText?: Text.propTypes.style,
-  dayRowView?: View.propTypes.style,
-  dayView?: View.propTypes.style,
-  daySelectedView?: View.propTypes.style,
+  dayRowView?: ViewPropTypes.style,
+  dayView?: ViewPropTypes.style,
+  daySelectedView?: ViewPropTypes.style,
   dayText?: Text.propTypes.style,
   dayTodayText?: Text.propTypes.style,
   daySelectedText?: Text.propTypes.style,
