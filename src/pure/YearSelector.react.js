@@ -3,20 +3,22 @@
 * @flow
 */
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   Slider,
   View,
   Text,
   StyleSheet,
 } from 'react-native';
+import ViewPropTypes from '../util/ViewPropTypes';
 
 // Component specific libraries.
 import _ from 'lodash';
 import Moment from 'moment';
 
 type Props = {
-  style?: View.propTypes.style,
+  style?: ViewPropTypes.style,
   // Focus and onFocus for managing the calendar.
   focus: Moment,
   onFocus?: (date : Moment) => void,

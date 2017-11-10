@@ -3,7 +3,8 @@
 * @flow
 */
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   LayoutAnimation,
   TouchableHighlight,
@@ -11,6 +12,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import ViewPropTypes from '../util/ViewPropTypes';
 
 // Component specific libraries.
 import _ from 'lodash';
@@ -19,7 +21,7 @@ import Moment from 'moment';
 type Props = {
   selected?: Moment,
   // Styling
-  style?: View.propTypes.style,
+  style?: ViewPropTypes.style,
   // Controls the focus of the calendar.
   focus: Moment,
   onFocus?: (date: Moment) => void,
