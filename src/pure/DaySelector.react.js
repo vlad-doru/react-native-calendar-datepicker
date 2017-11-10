@@ -38,6 +38,7 @@ type Props = {
   dayView?: ViewPropTypes.style,
   daySelectedView?: ViewPropTypes.style,
   dayText?: Text.propTypes.style,
+  daysArray?: Array,
   dayTodayText?: Text.propTypes.style,
   daySelectedText?: Text.propTypes.style,
   dayDisabledText?: Text.propTypes.style,
@@ -185,8 +186,8 @@ export default class DaySelector extends Component {
     return (
       <View>
         <View style={[styles.headerView, this.props.dayHeaderView]}>
-          {_.map(Moment.weekdaysShort(true), (day) =>
-            <Text key={day} style={[styles.headerText, this.props.dayHeaderText]}>
+          {_.map(this.props.daysArray || Moment.weekdaysShort(true), (day, i) =>
+            <Text key={day + i} style={[styles.headerText, this.props.dayHeaderText]}>
               {day}
             </Text>
           )}
