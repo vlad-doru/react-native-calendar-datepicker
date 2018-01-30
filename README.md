@@ -45,6 +45,7 @@ import Moment from 'moment';
 | --- | --- | ---
 | *selected* | Moment | The currently selected date
 | *onChange* | (date: Moment) => void | Callback for selecting a date
+| *onSlideStateChange* | (currentlySliding: boolean) => void | Called with `true` if user is currently sliding to switch months, or with `false` if user has stopped sliding. This can be useful for temporarily disabling scroll in a parent `ScrollView`. Be aware that this will be called repeatedly during a slide so avoid expensive functions or use a debouncing utility.
 | *minDate* | Moment | **[Mandatory]** Minimum selectable date
 | *maxDate* | Moment | **[Mandatory]** Maximum selectable date
 | *startStage* | "day"/"month"/"year" | **[Default: "day"]** Whether you would like to select the day, month or year first.
@@ -109,9 +110,9 @@ Below is the list of properties that can be used for styling. For a concrete exa
 
 Main Developer: [Vlad-Doru Ion](http://github.com/vlad-doru)
 
-Pull requests by: 
+Pull requests by:
 * [Jason Gaare](http://github.com/jasongaare)
-* [Igor Kurr](http://github.com/igorrKurr) 
+* [Igor Kurr](http://github.com/igorrKurr)
 
 ## License
 
