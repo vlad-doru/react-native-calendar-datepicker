@@ -26,6 +26,7 @@ type Props = {
   selected?: Moment,
   onChange?: (date: Moment) => void,
   onFocus?: (date: Moment) => void,
+  onSlideStateChange?: boolean => void,
   slideThreshold?: number,
   monthOffset?: number,
   // Minimum and maximum dates.
@@ -81,11 +82,13 @@ export default class DaySelector extends Component {
       },
       onPanResponderMove: (evt, gestureState) => {
         this._slide(gestureState.dx);
+        this.props.onSlideStateChange && this.props.onSlideStateChange(true);
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
+        this.props.onSlideStateChange && this.props.onSlideStateChange(false);
 
         // Get the height, width and compute the threshold and offset for swipe.
         const {height, width} = Dimensions.get('window');
@@ -130,6 +133,7 @@ export default class DaySelector extends Component {
         // should be cancelled
         LayoutAnimation.spring();
         this._slide(0)
+        this.props.onSlideStateChange && this.props.onSlideStateChange(false);
       },
       onShouldBlockNativeResponder: (evt, gestureState) => {
         // Returns whether this component should block native components from becoming the JS

@@ -39,6 +39,7 @@ type Props = {
   selected?: Moment,
   onChange?: (date: Moment) => void,
   slideThreshold?: number,
+  onSlideStateChange?: (boolean) => void,
   // Minimum and maximum date.
   minDate: Moment,
   maxDate: Moment,
@@ -206,6 +207,7 @@ export default class Calendar extends Component {
               maxDate={this.props.maxDate}
               // Control properties
               slideThreshold={this.props.slideThreshold}
+              onSlideStateChange={this.props.onSlideStateChange}
               // Transfer the corresponding styling properties.
               dayHeaderView={this.props.dayHeaderView}
               dayHeaderText={this.props.dayHeaderText}
