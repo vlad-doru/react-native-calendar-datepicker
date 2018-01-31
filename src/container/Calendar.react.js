@@ -39,6 +39,7 @@ type Props = {
   selected?: Moment,
   onChange?: (date: Moment) => void,
   slideThreshold?: number,
+  slideCanBeTerminated?: boolean,
   // Minimum and maximum date.
   minDate: Moment,
   maxDate: Moment,
@@ -201,6 +202,7 @@ export default class Calendar extends Component {
               selected={this.props.selected}
               onFocus={this._changeFocus}
               onChange={(date) => this.props.onChange && this.props.onChange(date)}
+              slideCanBeTerminated={this.props.slideCanBeTerminated}
               monthOffset={this.state.monthOffset}
               minDate={this.props.minDate}
               maxDate={this.props.maxDate}
@@ -249,6 +251,7 @@ export default class Calendar extends Component {
   }
 }
 Calendar.defaultProps = {
+  slideCanBeTerminated: true,
   minDate: Moment(),
   maxDate: Moment().add(10, 'years'),
   startStage: DAY_SELECTOR,
