@@ -50,6 +50,7 @@ import Moment from 'moment';
 | *startStage* | "day"/"month"/"year" | **[Default: "day"]** Whether you would like to select the day, month or year first.
 | *finalStage* | "day"/"month"/"year" | **[Default: "day"]** The last level of selection you want.
 | *slideThreshold* | number | **[Default: min([width / 3, 250])]** The number of pixels after which the slide event will be triggered.
+| *slideCanBeTerminated* | boolean | **[Default: true]** Whether scrolling a parent `ScrollView` can terminate the current sliding interaction.
 | *showArrows* | boolean | **[Default: false]** Whether you would like to show arrow buttons for moving between months.
 
 ### Locale specific calendar
