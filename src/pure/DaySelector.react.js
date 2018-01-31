@@ -27,6 +27,7 @@ type Props = {
   onChange?: (date: Moment) => void,
   onFocus?: (date: Moment) => void,
   slideThreshold?: number,
+  slideCanBeTerminated: boolean,
   monthOffset?: number,
   // Minimum and maximum dates.
   minDate: Moment,
@@ -82,7 +83,7 @@ export default class DaySelector extends Component {
       onPanResponderMove: (evt, gestureState) => {
         this._slide(gestureState.dx);
       },
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderTerminationRequest: (evt, gestureState) => this.props.slideCanBeTerminated,
       onPanResponderRelease: (evt, gestureState) => {
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
